@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -45,9 +46,12 @@ const AdminRoute = ({ children }) => {
 
 function AppContent() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#080b11] text-slate-200 selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen flex flex-col text-slate-200 selection:bg-indigo-500/30 selection:text-indigo-200 relative">
+      <div className="grid-bg" />
+      <div className="radial-glow -top-40 -left-40" />
+      <div className="radial-glow-2 -bottom-40 -right-40" />
       <Navbar />
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col z-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -103,9 +107,11 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
     </Router>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { 
   Layers, 
   User, 
@@ -12,11 +13,14 @@ import {
   BarChart3, 
   LogIn, 
   UserPlus, 
-  Activity 
+  Activity,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -48,6 +52,14 @@ const Navbar = () => {
 
       {/* Nav Links */}
       <div className="flex items-center gap-3">
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-smooth cursor-pointer"
+          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </button>
+
         {user ? (
           <>
             {user.role === 'ROLE_ADMIN' ? (
