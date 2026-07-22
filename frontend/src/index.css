@@ -1,99 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Light Theme Tokens */
-  --bg-primary: #f8fafc; /* slate 50 */
-  --bg-card: rgba(255, 255, 255, 0.75);
-  --border-color: rgba(15, 23, 42, 0.08);
-  --text-primary: #0f172a; /* slate 900 */
-  --text-secondary: #475569; /* slate 600 */
-  --text-muted: #94a3b8; /* slate 400 */
-  
-  --grid-line: rgba(15, 23, 42, 0.03);
-  --glow-1: rgba(99, 102, 241, 0.04);
-  --glow-2: rgba(168, 85, 247, 0.02);
-  --glow-3: rgba(236, 72, 153, 0.03);
-  
-  --input-bg: rgba(255, 255, 255, 0.9);
-  --input-border: rgba(15, 23, 42, 0.1);
-  --btn-secondary-bg: rgba(15, 23, 42, 0.03);
-  
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  /* ===== Q-Flow ticket-counter tokens — LIGHT (parchment) ===== */
+  --ink: #EFE6D2;                        /* page background — warm parchment */
+  --ink-soft: #FBF7EE;                   /* panel surface sitting on the page */
+  --ink-line: rgba(36, 31, 26, 0.14);    /* hairline dividers on the page */
+  --on-ink: #241F1A;                     /* primary text sitting on the page/panels */
+  --muted-on-ink: rgba(36, 31, 26, 0.58);/* secondary text on the page/panels */
+
+  --brass: #B9791F;                      /* primary accent — deepened for contrast on light bg */
+  --brass-deep: #96600F;
+  --stamp-red: #AE3A22;
+  --stamp-green: #2F6A4E;
+
+  /* Ticket paper itself never changes with theme — paper is paper */
+  --paper: #F4E8D2;
+  --paper-dim: #E9DAB9;
+  --charcoal: #241F1A;
+
+  --glow-1: rgba(185, 121, 31, 0.10);
+  --glow-2: rgba(47, 106, 78, 0.05);
+
+  --font-display: 'Archivo', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', sans-serif;
 }
 
 .dark {
-  /* Dark Theme Tokens */
-  --bg-primary: #030712; /* pitch dark */
-  --bg-card: rgba(10, 15, 30, 0.7);
-  --border-color: rgba(255, 255, 255, 0.05);
-  --text-primary: #f3f4f6; /* grey 100 */
-  --text-secondary: #9ca3af; /* grey 400 */
-  --text-muted: #6b7280; /* grey 500 */
-  
-  --grid-line: rgba(255, 255, 255, 0.02);
-  --glow-1: rgba(99, 102, 241, 0.08);
-  --glow-2: rgba(168, 85, 247, 0.03);
-  --glow-3: rgba(236, 72, 153, 0.06);
-  
-  --input-bg: rgba(15, 23, 42, 0.3);
-  --input-border: rgba(255, 255, 255, 0.05);
-  --btn-secondary-bg: rgba(255, 255, 255, 0.02);
+  /* ===== Q-Flow ticket-counter tokens — DARK (counter-hall ink) ===== */
+  --ink: #16302C;
+  --ink-soft: #1E3E38;
+  --ink-line: rgba(244, 232, 210, 0.14);
+  --on-ink: #F4E8D2;
+  --muted-on-ink: rgba(244, 232, 210, 0.58);
+
+  --brass: #D89B3D;
+  --brass-deep: #B9791F;
+  --stamp-red: #C1432A;
+  --stamp-green: #3F7A5C;
+
+  --paper: #F4E8D2;
+  --paper-dim: #E9DAB9;
+  --charcoal: #241F1A;
+
+  --glow-1: rgba(216, 155, 61, 0.08);
+  --glow-2: rgba(63, 122, 92, 0.05);
 }
 
 body {
   margin: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: var(--ink);
+  color: var(--on-ink);
+  font-family: var(--font-body);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Animations */
-@keyframes float {
-  0% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-10px) scale(1.02); }
-  100% { transform: translateY(0px) scale(1); }
-}
-
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-}
-
-@keyframes fade-in-up {
-  0% { opacity: 0; transform: translateY(15px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Grid & Blob Backgrounds */
+/* ---------- Ambient page glow (brass/green instead of indigo/purple) ---------- */
 .grid-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
   background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-image:
+    linear-gradient(to right, var(--ink-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ink-line) 1px, transparent 1px);
   mask-image: radial-gradient(circle at 50% 50%, black 60%, transparent 100%);
   -webkit-mask-image: radial-gradient(circle at 50% 50%, black 60%, transparent 100%);
-  transition: background-image 0.3s ease;
+  opacity: 0.5;
 }
 
 .radial-glow {
@@ -101,11 +78,10 @@ body {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow-1) 0%, var(--glow-2) 50%, transparent 100%);
+  background: radial-gradient(circle, var(--glow-1) 0%, transparent 70%);
   z-index: -1;
   filter: blur(80px);
   pointer-events: none;
-  transition: background 0.3s ease;
 }
 
 .radial-glow-2 {
@@ -113,170 +89,309 @@ body {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--glow-3) 0%, var(--glow-1) 60%, transparent 100%);
+  background: radial-gradient(circle, var(--glow-2) 0%, transparent 70%);
   z-index: -1;
   filter: blur(80px);
   pointer-events: none;
-  transition: background 0.3s ease;
 }
 
-/* Modern Typography */
-.font-display {
-  font-family: 'Space Grotesk', sans-serif;
-  letter-spacing: -0.03em;
+/* ---------- Animations ---------- */
+@keyframes qf-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.qf-blink { animation: qf-blink 1.4s ease-in-out infinite; }
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .qf-blink, .animate-fade-in-up, .animate-float { animation: none; }
 }
 
+/* ---------- Page shell / headings ---------- */
+.qf-page {
+  background:
+    radial-gradient(1200px 500px at 15% -10%, var(--glow-1), transparent 60%),
+    var(--ink);
+  font-family: var(--font-body);
+  color: var(--on-ink);
+}
+
+.qf-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.qf-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--on-ink);
+}
+
+/* ---------- Ticket stub (signature element) ----------
+   The literal "take a number" ticket. Paper is paper regardless of theme —
+   only the punched-out perforation needs to match whatever page it sits on. */
+.ticket-stub {
+  position: relative;
+  background: var(--paper);
+  color: var(--charcoal);
+  border: 2px solid var(--charcoal);
+  border-radius: 4px;
+  box-shadow: 7px 7px 0 rgba(0,0,0,0.25);
+}
+
+.ticket-stub__perf {
+  position: absolute;
+  top: -2px;
+  left: 18px;
+  right: 18px;
+  height: 15px;
+  background-image: radial-gradient(circle 7.5px, var(--ink) 7.5px, transparent 7.6px);
+  background-repeat: repeat-x;
+  background-position: top center;
+  background-size: 26px 15px;
+  pointer-events: none;
+}
+
+.ticket-number {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--charcoal);
+}
+
+/* ---------- Stamp badge (status) ---------- */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  transform: rotate(-3deg);
+  white-space: nowrap;
+}
+.stamp-green  { color: var(--stamp-green); }
+.stamp-red    { color: var(--stamp-red); }
+.stamp-brass  { color: var(--brass-deep); }
+.stamp-flat   { transform: none; }
+
+/* ---------- Panels ---------- */
+.qf-panel {
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-line);
+  border-radius: 10px;
+  box-shadow: 0 16px 32px -18px rgba(0,0,0,0.35);
+}
+
+.qf-panel-paper {
+  background: var(--paper);
+  color: var(--charcoal);
+  border: 2px solid var(--charcoal);
+  border-radius: 6px;
+}
+
+/* ---------- Buttons ---------- */
+.btn-brass {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--brass);
+  color: var(--charcoal);
+  border: 2px solid var(--charcoal);
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.35);
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+}
+.btn-brass:hover:not(:disabled) {
+  background: var(--brass-deep);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
+}
+.btn-brass:active:not(:disabled) {
+  transform: translate(0,0);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.35);
+}
+.btn-brass:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-outline {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--on-ink);
+  border: 2px solid var(--ink-line);
+  border-radius: 6px;
+  transition: border-color .12s ease, color .12s ease, background .12s ease;
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--brass);
+  color: var(--brass);
+  background: var(--glow-1);
+}
+
+.btn-stamp-red {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--stamp-red);
+  border: 2px solid var(--stamp-red);
+  border-radius: 6px;
+  transition: background .12s ease, color .12s ease;
+}
+.btn-stamp-red:hover:not(:disabled) {
+  background: var(--stamp-red);
+  color: var(--paper);
+}
+
+/* ---------- Inputs ---------- */
+.qf-input-wrap { position: relative; }
+.qf-input {
+  width: 100%;
+  background: rgba(127,127,127,0.06);
+  border: 1.5px solid var(--ink-line);
+  border-radius: 8px;
+  padding: 0.85rem 1rem 0.85rem 2.75rem;
+  color: var(--on-ink);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  transition: border-color .12s ease, background .12s ease;
+}
+.qf-input::placeholder { color: var(--muted-on-ink); }
+.qf-input:focus {
+  outline: none;
+  border-color: var(--brass);
+  background: rgba(127,127,127,0.1);
+}
+.qf-input-icon {
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted-on-ink);
+}
+
+.qf-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-on-ink);
+}
+
+/* ---------- Alerts ---------- */
+.qf-alert {
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  border: 1.5px solid;
+}
+.qf-alert-error {
+  background: rgba(193,67,42,0.10);
+  border-color: rgba(193,67,42,0.35);
+  color: var(--stamp-red);
+}
+.qf-alert-success {
+  background: rgba(63,122,92,0.12);
+  border-color: rgba(63,122,92,0.4);
+  color: var(--stamp-green);
+}
+
+/* ---------- Misc motifs ---------- */
+.qf-notch-row {
+  position: relative;
+}
+.qf-notch-row::before,
+.qf-notch-row::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--ink);
+  border-radius: 50%;
+}
+.qf-notch-row::before { left: -7px; }
+.qf-notch-row::after { right: -7px; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink-line); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-on-ink); }
+
+/* ============================================================
+   Legacy class aliases — kept in case other, un-redesigned
+   components (e.g. a Navbar/Footer) still reference the old
+   utility classes. Re-themed to the new palette so the whole
+   app reads as one system even before those files are updated.
+   ============================================================ */
+.font-display { font-family: var(--font-display); letter-spacing: -0.01em; }
 .text-gradient {
-  background: linear-gradient(135deg, #818cf8 0%, #34d399 50%, #c084fc 100%);
+  background: linear-gradient(135deg, var(--brass) 0%, var(--stamp-green) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* Premium Containers & Cards */
 .neo-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-line);
+  box-shadow: 0 16px 32px -18px rgba(0,0,0,0.35);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.dark .neo-card {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-}
-
-.neo-card:hover {
-  border-color: rgba(99, 102, 241, 0.2);
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.08);
-}
-
-.dark .neo-card:hover {
-  box-shadow: 0 25px 50px -12px rgba(99, 102, 241, 0.25);
-}
-
-.neo-card-interactive {
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--border-color);
-  transition: all 0.2s ease-in-out;
-}
-
-.neo-card-interactive:hover {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-}
-
-/* Inputs & Form styling */
+.neo-card:hover { border-color: rgba(216,155,61,0.3); }
 .neo-input {
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  color: var(--text-primary);
+  background: rgba(127,127,127,0.06);
+  border: 1px solid var(--ink-line);
+  color: var(--on-ink);
   transition: all 0.2s ease;
 }
-
 .neo-input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px var(--glow-1);
 }
-
 .neo-btn-secondary {
-  background: var(--btn-secondary-bg);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
+  background: rgba(127,127,127,0.05);
+  border: 1px solid var(--ink-line);
+  color: var(--muted-on-ink);
   transition: all 0.2s ease;
 }
-
-.neo-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-  border-color: var(--text-muted);
+.neo-btn-secondary:hover { color: var(--on-ink); border-color: var(--muted-on-ink); }
+.glass-panel {
+  background: var(--ink-soft);
+  border: 1px solid var(--ink-line);
 }
-
-/* Smart Boarding Ticket design */
-.boarding-ticket {
-  background: radial-gradient(circle at 0% 50%, transparent 12px, var(--bg-card) 13px),
-              radial-gradient(circle at 100% 50%, transparent 12px, var(--bg-card) 13px);
-  border: 1px dashed var(--border-color);
-  position: relative;
-  color: var(--text-primary);
-}
-
-.boarding-ticket::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 24px;
-  border: 1px solid var(--border-color);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Pseudo barcode styling */
-.barcode-line {
-  height: 32px;
-  background-color: var(--text-secondary);
-  border-radius: 1px;
-}
-
-/* Custom transitions and scrollbar */
-.transition-smooth {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-/* Light Mode Contrast Overrides */
-html:not(.dark) .text-slate-100 { color: #0f172a !important; }
-html:not(.dark) .text-slate-200 { color: #1e293b !important; }
-html:not(.dark) .text-slate-300 { color: #334155 !important; }
-html:not(.dark) .text-slate-350 { color: #334155 !important; }
-html:not(.dark) .text-slate-400 { color: #475569 !important; }
-html:not(.dark) .text-slate-450 { color: #475569 !important; }
-html:not(.dark) .text-slate-455 { color: #475569 !important; }
-html:not(.dark) .text-slate-500 { color: #64748b !important; }
-html:not(.dark) .text-slate-550 { color: #64748b !important; }
-html:not(.dark) .text-slate-555 { color: #64748b !important; }
-html:not(.dark) .text-slate-600 { color: #475569 !important; }
-html:not(.dark) .text-slate-650 { color: #475569 !important; }
-
-/* Ensure borders are visible but subtle in light mode */
-html:not(.dark) .border-slate-800 { border-color: rgba(15, 23, 42, 0.15) !important; }
-html:not(.dark) .border-slate-850 { border-color: rgba(15, 23, 42, 0.1) !important; }
-html:not(.dark) .border-slate-900 { border-color: rgba(15, 23, 42, 0.12) !important; }
-
-/* Background containers in light mode */
-html:not(.dark) .bg-slate-900\/60 { background-color: rgba(255, 255, 255, 0.8) !important; }
-html:not(.dark) .bg-slate-950\/80 { background-color: rgba(255, 255, 255, 0.9) !important; }
-html:not(.dark) .bg-slate-950 { background-color: #ffffff !important; }
-html:not(.dark) .bg-slate-900\/30 { background-color: #ffffff !important; }
-html:not(.dark) .bg-slate-900\/50 { background-color: #ffffff !important; }
-html:not(.dark) .bg-slate-900 { background-color: #f1f5f9 !important; }
-
-/* Glass panels in light mode */
-html:not(.dark) .glass-panel {
-  background: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
-}
-
+.transition-smooth { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }

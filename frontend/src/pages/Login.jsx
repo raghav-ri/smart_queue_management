@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LogIn, Mail, Lock, AlertCircle, KeyRound, Sparkles, Layers, Activity } from 'lucide-react';
+import { LogIn, Mail, Lock, AlertCircle, KeyRound, Ticket, Layers, Activity } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -30,73 +30,58 @@ const Login = () => {
   };
 
   return (
-    <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-screen">
-      
-      {/* Left side: Premium Branding Column (Hidden on mobile) */}
-      <div className="hidden lg:flex lg:col-span-5 bg-slate-950 border-r border-slate-900 flex-col justify-between p-12 relative overflow-hidden">
-        {/* Glowing background highlights */}
-        <div className="absolute top-[-20%] left-[-20%] h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute bottom-[-15%] right-[-15%] h-80 w-80 rounded-full bg-purple-500/10 blur-3xl" />
-        
-        {/* Header Branding */}
-        <Link to="/" className="flex items-center gap-2 group z-10 w-fit">
-          <div className="bg-gradient-to-tr from-indigo-500 to-purple-600 p-2 rounded-xl text-white shadow-lg shadow-indigo-500/15 group-hover:scale-105 transition-all">
+    <div className="qf-page flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-screen">
+
+      {/* Left side: Counter signage column */}
+      <div className="hidden lg:flex lg:col-span-5 border-r border-[var(--ink-line)] flex-col justify-between p-12 relative overflow-hidden">
+        <div className="absolute top-[-15%] left-[-15%] h-72 w-72 rounded-full bg-[var(--brass)]/10 blur-3xl" />
+
+        <Link to="/" className="flex items-center gap-2.5 group z-10 w-fit">
+          <div className="bg-[var(--brass)] text-[var(--charcoal)] p-2 rounded-md border-2 border-[var(--charcoal)] shadow-[3px_3px_0_rgba(0,0,0,0.4)] group-hover:-translate-y-0.5 transition-transform">
             <Layers size={18} />
           </div>
-          <span className="text-lg font-bold tracking-tight text-gradient">
-            Q-Flow
-          </span>
+          <span className="qf-heading text-lg tracking-tight">Q-FLOW</span>
         </Link>
 
-        {/* Feature/Metric Display */}
-        <div className="space-y-6 z-10 my-auto">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 w-fit">
-            <Sparkles size={10} />
-            <span>Smart waitlists for modern teams</span>
-          </div>
-
-          <h2 className="text-4xl font-extrabold text-white leading-tight font-display">
-            Real-Time Queue <br />
-            Management in One Click.
+        <div className="space-y-6 z-10 my-auto max-w-sm">
+          <span className="qf-eyebrow">Counter №1 — Sign In</span>
+          <h2 className="qf-heading text-4xl leading-[1.05] uppercase">
+            Take your place<br />in line, digitally.
           </h2>
-
-          <p className="text-slate-400 text-sm font-light leading-relaxed max-w-sm">
-            Log in to monitor your active line position, cancel tokens, or call customers from your custom administrator dashboard.
+          <p className="text-[var(--muted-on-ink)] text-sm leading-relaxed font-light">
+            Sign in to watch your position update live, manage your ticket, or run the counter desk from your admin console.
           </p>
 
-          <div className="pt-6 border-t border-slate-900 space-y-4 max-w-xs">
-            <div className="flex items-center gap-3">
-              <div className="bg-indigo-500/15 text-indigo-400 p-2 rounded-lg">
-                <Activity size={16} />
-              </div>
-              <div>
-                <span className="text-slate-200 text-xs font-bold block">15,000+ Tokens Served</span>
-                <span className="text-slate-500 text-[10px]">Across multiple registered counter categories.</span>
-              </div>
+          <div className="pt-6 border-t-2 border-dashed border-[var(--ink-line)] flex items-center gap-3">
+            <div className="bg-[var(--ink-soft)] border border-[var(--ink-line)] text-[var(--brass)] p-2.5 rounded-lg">
+              <Activity size={16} />
+            </div>
+            <div>
+              <span className="text-[var(--text-primary)] text-xs font-bold block font-mono">15,000+ TOKENS SERVED</span>
+              <span className="text-[var(--muted-on-ink)] text-[10px]">Across every registered counter to date.</span>
             </div>
           </div>
         </div>
 
-        {/* Footer branding */}
-        <div className="text-xs text-slate-600 font-mono z-10">
-          © Q-Flow SaaS Inc. All rights reserved.
+        <div className="text-[10px] text-[var(--muted-on-ink)] font-mono z-10 tracking-wide">
+          © Q-FLOW COUNTER SYSTEMS
         </div>
       </div>
 
-      {/* Right side: Login Form Column */}
-      <div className="lg:col-span-7 flex items-center justify-center p-6 md:p-12 bg-gradient-premium relative">
-        <div className="neo-card max-w-md w-full p-8 rounded-2xl shadow-2xl space-y-6 relative overflow-hidden">
-          
+      {/* Right side: Login form */}
+      <div className="lg:col-span-7 flex items-center justify-center p-6 md:p-12 relative">
+        <div className="qf-panel-paper max-w-md w-full p-8 space-y-6 relative">
+
           <div className="text-center space-y-2">
-            <div className="bg-gradient-to-tr from-indigo-500 to-purple-600 p-3 rounded-xl text-white shadow-lg w-fit mx-auto lg:hidden">
+            <div className="bg-[var(--charcoal)] text-[var(--paper)] p-3 rounded-lg w-fit mx-auto lg:hidden">
               <KeyRound size={22} />
             </div>
-            <h2 className="text-2xl font-bold text-slate-100 font-display">Sign In</h2>
-            <p className="text-xs text-slate-400">Access your Q-Flow account dashboard</p>
+            <span className="qf-label text-[var(--brass-deep)]">Ticket Window</span>
+            <h2 className="text-2xl font-extrabold" style={{ fontFamily: 'var(--font-display)' }}>Sign In</h2>
           </div>
 
           {error && (
-            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-3 rounded-xl flex items-start gap-2 text-xs">
+            <div className="qf-alert border-[var(--stamp-red)] bg-[rgba(193,67,42,0.08)] text-[var(--stamp-red)]">
               <AlertCircle size={16} className="shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -104,31 +89,31 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-450 uppercase tracking-wider">Email Address</label>
+              <label className="text-[10px] font-bold text-[var(--charcoal)]/60 uppercase tracking-wider font-mono">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-550" size={16} />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--charcoal)]/40" size={16} />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
-                  className="w-full bg-slate-900/30 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-200 placeholder-slate-550 focus:outline-none focus:border-indigo-500 text-sm transition-smooth"
+                  className="w-full bg-white/40 border-2 border-[var(--charcoal)]/15 rounded-lg py-3 pl-11 pr-4 text-[var(--charcoal)] placeholder-[var(--charcoal)]/35 focus:outline-none focus:border-[var(--brass-deep)] text-sm transition-colors"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-455 uppercase tracking-wider">Password</label>
+              <label className="text-[10px] font-bold text-[var(--charcoal)]/60 uppercase tracking-wider font-mono">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-555" size={16} />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--charcoal)]/40" size={16} />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-slate-900/30 border border-slate-800 rounded-xl py-3 pl-11 pr-4 text-slate-200 placeholder-slate-555 focus:outline-none focus:border-indigo-500 text-sm transition-smooth"
+                  className="w-full bg-white/40 border-2 border-[var(--charcoal)]/15 rounded-lg py-3 pl-11 pr-4 text-[var(--charcoal)] placeholder-[var(--charcoal)]/35 focus:outline-none focus:border-[var(--brass-deep)] text-sm transition-colors"
                 />
               </div>
             </div>
@@ -136,10 +121,10 @@ const Login = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 transition-smooth cursor-pointer disabled:opacity-50"
+              className="btn-brass w-full py-3.5 flex items-center justify-center gap-2 cursor-pointer"
             >
               {submitting ? (
-                <span className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="h-4 w-4 border-2 border-[var(--charcoal)]/30 border-t-[var(--charcoal)] rounded-full animate-spin" />
               ) : (
                 <>
                   <LogIn size={16} />
@@ -149,10 +134,11 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="text-center pt-4 text-xs text-slate-400 border-t border-slate-900">
+          <div className="text-center pt-4 text-xs text-[var(--charcoal)]/60 border-t-2 border-dashed border-[var(--charcoal)]/15 flex items-center justify-center gap-1.5">
+            <Ticket size={12} />
             Don't have an account?{' '}
-            <Link to="/register" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
-              Create an Account
+            <Link to="/register" className="text-[var(--brass-deep)] hover:underline font-bold">
+              Create one
             </Link>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
-import { KanbanSquare, ArrowRight, ShieldCheck, AlertCircle, HelpCircle, Loader2 } from 'lucide-react';
+import { KanbanSquare, ArrowRight, AlertCircle, HelpCircle, Loader2 } from 'lucide-react';
 
 const JoinQueue = () => {
   const [counters, setCounters] = useState([]);
@@ -39,21 +39,21 @@ const JoinQueue = () => {
   };
 
   return (
-    <div className="flex-1 px-6 py-12 max-w-5xl mx-auto w-full space-y-8 bg-gradient-premium">
-      <div className="flex flex-col space-y-2 border-b border-slate-800 pb-4">
-        <h1 className="text-3xl font-extrabold text-slate-100 flex items-center gap-2">
-          <KanbanSquare className="text-indigo-400" /> Join Service Queue
+    <div className="qf-page flex-1 px-6 py-12 max-w-5xl mx-auto w-full space-y-8">
+      <div className="flex flex-col space-y-2 border-b border-[var(--ink-line)] pb-4">
+        <h1 className="text-3xl qf-heading uppercase flex items-center gap-2">
+          <KanbanSquare className="text-[var(--brass)]" /> Join Service Queue
         </h1>
-        <p className="text-slate-400 text-sm">Select an open counter below to register for a virtual queue ticket</p>
+        <p className="text-[var(--muted-on-ink)] text-sm">Pick an open counter below and pull a virtual ticket</p>
       </div>
 
       {error && (
-        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 p-4 rounded-xl flex items-start gap-2.5 max-w-2xl">
+        <div className="qf-alert qf-alert-error max-w-2xl">
           <AlertCircle size={20} className="shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <span className="text-sm font-semibold">{error}</span>
+            <span>{error}</span>
             {error.includes("already") && (
-              <p className="text-xs text-rose-400/80">
+              <p className="text-xs opacity-80">
                 You can view or cancel your active ticket on the{' '}
                 <Link to="/my-queue" className="underline hover:text-white font-medium">
                   Active Ticket page
@@ -65,15 +65,15 @@ const JoinQueue = () => {
       )}
 
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-20 text-slate-400 gap-3">
-          <Loader2 className="animate-spin text-indigo-500" size={32} />
+        <div className="flex flex-col items-center justify-center py-20 text-[var(--muted-on-ink)] gap-3">
+          <Loader2 className="animate-spin text-[var(--brass)]" size={32} />
           <span>Loading available service counters...</span>
         </div>
       ) : counters.length === 0 ? (
-        <div className="glass-panel p-12 rounded-2xl text-center space-y-4 max-w-xl mx-auto">
-          <HelpCircle size={48} className="text-slate-600 mx-auto" />
-          <h3 className="text-lg font-semibold text-slate-300">No Counters Found</h3>
-          <p className="text-slate-500 text-sm leading-relaxed">
+        <div className="qf-panel p-12 text-center space-y-4 max-w-xl mx-auto">
+          <HelpCircle size={48} className="text-[var(--muted-on-ink)] mx-auto opacity-60" />
+          <h3 className="text-lg font-semibold text-[var(--on-ink)]">No Counters Found</h3>
+          <p className="text-[var(--muted-on-ink)] text-sm leading-relaxed">
             There are currently no service counters configured by the administrator. Please try again later.
           </p>
         </div>
@@ -85,55 +85,43 @@ const JoinQueue = () => {
             const isDisabled = !isOpen;
 
             return (
-              <div 
-                key={c.id} 
-                className={`glass-panel p-6 rounded-2xl flex flex-col justify-between shadow-xl transition-all relative overflow-hidden border ${
-                  isOpen 
-                    ? 'hover:border-indigo-500/40 hover:-translate-y-0.5' 
-                    : 'opacity-65'
+              <div
+                key={c.id}
+                className={`qf-panel p-6 flex flex-col justify-between relative overflow-hidden transition-all ${
+                  isOpen ? 'hover:border-[var(--brass)]/50 hover:-translate-y-0.5' : 'opacity-60'
                 }`}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold tracking-wider text-indigo-400 uppercase bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
-                      {c.department}
-                    </span>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                      isOpen 
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 badge-glow-green' 
-                        : isPaused
-                        ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 badge-glow-blue'
-                        : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                    }`}>
+                    <span className="qf-eyebrow">{c.department}</span>
+                    <span className={`stamp ${isOpen ? 'stamp-green' : isPaused ? 'stamp-brass' : 'stamp-red'}`}>
                       {isOpen ? 'OPEN' : isPaused ? 'PAUSED' : 'CLOSED'}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-xl font-bold text-slate-200">{c.name}</h3>
-                    <p className="text-slate-500 text-xs mt-1">Counter ID: #{c.id}</p>
+                    <h3 className="text-xl font-bold text-[var(--on-ink)]" style={{ fontFamily: 'var(--font-display)' }}>{c.name}</h3>
+                    <p className="text-[var(--muted-on-ink)] text-xs mt-1 font-mono">DESK #{c.id}</p>
                   </div>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-slate-900/60 flex items-center justify-between">
-                  <span className="text-xs text-slate-500">
+                <div className="mt-8 pt-4 border-t border-dashed border-[var(--ink-line)] flex items-center justify-between">
+                  <span className="text-xs text-[var(--muted-on-ink)]">
                     {isOpen ? 'Step in line virtually' : 'Unavailable'}
                   </span>
-                  
+
                   <button
                     onClick={() => handleJoinQueue(c.id)}
                     disabled={isDisabled || joiningId !== null}
-                    className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-                      isOpen
-                        ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/10 hover:scale-[1.03]'
-                        : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-800/80'
+                    className={`px-4 py-2 rounded-md text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
+                      isOpen ? 'btn-brass' : 'bg-transparent border-2 border-[var(--ink-line)] text-[var(--muted-on-ink)] cursor-not-allowed font-mono font-bold uppercase'
                     }`}
                   >
                     {joiningId === c.id ? (
                       <Loader2 className="animate-spin" size={14} />
                     ) : (
                       <>
-                        <span>{isOpen ? 'Join Queue' : 'Closed'}</span>
+                        <span>{isOpen ? 'Pull Ticket' : 'Closed'}</span>
                         {isOpen && <ArrowRight size={14} />}
                       </>
                     )}
